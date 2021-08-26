@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
+   <listener>      
+  	<listener-class>jdbc.DBCPInitListener</listener-class>
+  </listener>
+   <!-- <context-param> 
+ 	<param-name>poolConfig</param-name>
+ 	<param-value>
+ 		jdbcdriver=org.mariadb.jdbc.Driver
+ 		jdbcUrl=jdbc:mariadb://localhost/environment
+ 		dbUser=root
+ 		dbPass=Xorjsals12
+ 		poolName=environment
+ 		vaildationQuery=select 1
+ 		minIdle=4
+ 		maxTotal=50
+ 	</param-value> 
+  </context-param> -->
+  <!-- 데이터베이스 연결  -->  
+  <context-param>
+ 	<param-name>poolConfig</param-name>
+ 	<param-value>
+ 		jdbcdriver=org.mariadb.jdbc.Driver
+ 		jdbcUrl=jdbc:mariadb://192.168.40.26:3306/environment
+ 		dbUser=taewoo
+ 		dbPass=1234
+ 		poolName=environment
+ 		vaildationQuery=select 1
+ 		minIdle=4
+ 		maxTotal=50
+ 	</param-value>
+  </context-param>
+  
+  <!-- 로그인 체크 필터 --> 
+  <filter>
+  	<filter-name>LoginCheckFilter</filter-name>
+  	<filter-class>filter.LoginCheckFilter</filter-class>
+  </filter> 
+  <filter-mapping>
+  	<filter-name>LoginCheckFilter</filter-name>
+  	<url-pattern>/changePwd.do</url-pattern>
+  	<url-pattern>/article/write.do</url-pattern>
+  	<url-pattern>/article/modify.do</url-pattern>
+  </filter-mapping>
+  
+    <!-- 한글 깨짐 방지 -->
+<!-- 	<filter>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<filter-class>common.filter.CharacterEncodingFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>CharacterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping> -->
+	
+	<!-- ControllerUsingURI -->
+  <servlet>
+  	<servlet-name>ControllerUsingURI</servlet-name>
+  	<servlet-class>mvc.controller.ControllerUsingURI</servlet-class>
+  	<init-param>
+  		<param-name>configFile</param-name>
+  		<param-value>/WEB-INF/commandHandlerURI.properties</param-value>
+  	</init-param>
+  	<load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ControllerUsingURI</servlet-name>
+  	<url-pattern>*.do</url-pattern>
+  </servlet-mapping>
+</web-app>
