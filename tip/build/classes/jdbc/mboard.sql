@@ -7,16 +7,12 @@ regdate datetime not null
 
 select * from member1;
 
-create table say_article(
+create table tip_article(
 	article_no int auto_increment primary key,
-	writer_id varchar(50) not null,
-	writer_name varchar(50) not null,
-	title varchar(255) not null,
-	regdate datetime not null,
-	moddate datetime not null
+	title varchar(255) not null
 );
 
-create table say_article_content(
+create table tip_article_content(
 	article_no int primary key,
 	content text
 );
